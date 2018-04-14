@@ -16,8 +16,10 @@
  */
 package com.alipay.sofa.boot.examples.demo.isolation;
 
+import com.alipay.sofa.boot.examples.demo.isolation.rpc.LiangenService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportResource;
 
 @ImportResource({ "classpath*:spring/bean.xml" })
@@ -26,6 +28,11 @@ public class SofaBootClassIsolationDemoApplication {
 
     public static void main(String[] args) {
         //SOFABoot Isolation
-        SpringApplication.run(SofaBootClassIsolationDemoApplication.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(SofaBootClassIsolationDemoApplication.class, args);
+
+        LiangenService liangenService = (LiangenService) applicationContext.getBean("liangenServiceReference");
+
+        System.out.println(liangenService.say("hi"));
+
     }
 }
